@@ -1,0 +1,35 @@
+{
+  "name": "ipadd",
+  "version": "1.0.0",
+  "description": "Add and pin files on Crust Network and IPFS",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ipfs",
+    "crust",
+    "crust-network",
+    "pin",
+    "add",
+    "cli",
+    "typescript"
+  ],
+  "author": "AwesomeKalin55",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "ethers": "^5.7.2",
+    "figlet": "^1.5.2",
+    "inquirer": "^9.1.4",
+    "ipfs-core": "^0.18.0",
+    "ipfs-http-client": "^60.0.0",
+    "nanospinner": "^1.1.0",
+    "yargs": "^17.6.2"
+  },
+  "devDependencies": {
+    "jsmin": "^1.0.1",
+    "np": "^7.6.3",
+    "typescript": "^4.9.4"
+  }
+}
