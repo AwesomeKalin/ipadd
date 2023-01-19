@@ -14,10 +14,11 @@
 
 import { ethers } from 'ethers';
 import fs from 'fs-extra';
+import { getAppDataFolder } from './getAppDataFolder.js';
 
 export function saveSignature(signature: string) {
     // Get AppData Folder
-    const appData: string = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + '/Library/Preferences' : process.env.HOME + "/.local/share");
+    const appData: string = getAppDataFolder();
 
     // Write signature to AppData Folder/ipadd/signature.ipadd
     fs.outputFileSync(`${appData}/ipadd/signature.ipadd`, signature);
@@ -25,7 +26,7 @@ export function saveSignature(signature: string) {
 
 export function loadSignature() {
     // Get AppData folder
-    const appData: string = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + '/Library/Preferences' : process.env.HOME + "/.local/share");
+    const appData: string = getAppDataFolder();
     if (fs.existsSync(`${appData}/ipadd/signature.ipadd`)){
         return fs.readFileSync(`${appData}/ipadd/signature.ipadd`, {encoding:'utf8', flag:'r'});
     }

@@ -19,11 +19,12 @@ import { genSignature, loadSignature, saveSignature } from "../util/sigUtil.js";
 import inquirer from "inquirer";
 import { pinFile } from '../pin.js';
 import * as IPFS from 'ipfs-core'
+import { getAppDataFolder } from '../util/getAppDataFolder.js';
 
 // Cli arguments
 const argv = yargs(process.argv.slice(2)).options({
     cid: { 'type': 'string', demandOption: true }
-}).argv;
+}).parseSync();
 
 if (loadSignature() == null) {
     let seedJson: any;
@@ -47,9 +48,11 @@ if (loadSignature() == null) {
 const authHeader = loadSignature();
 
 // Start an ipfs node
-const ipfsNode = await IPFS.create();
+const ipfsNode = await IPFS.create({ repo: `${getAppDataFolder()}/ipadd/jsipfs`, silent: true });
 
-console.log(ipfsNode.files.stat(`/ipfs/${argv.cid}`));
+// Get file size
+const fileSizeJson = await ipfsNode.files.stat(`/ipfs/${argv.cid}`)
+console.log(fileSizeJson.cumulativeSize);
 
 // Check if file size is under 5GB
 //if () {
