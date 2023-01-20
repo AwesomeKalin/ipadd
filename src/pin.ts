@@ -12,6 +12,32 @@
 * SOFTWARE.
 */
 
-export function pinFile(cid: string, authHeader: string) {
+import got from 'got';
 
+export async function pinFile(cid: string, authHeader: string) {
+    // Set Pinning Service
+    const ipfsPinningService: string = 'https://pin.crustcode.com/psa';
+
+    // In try-catch in case it fails
+    try {
+        //@ts-expect-error
+        const { body } = await got.post(
+            ipfsPinningService + '/pins',
+            {
+                headers: {
+                    authorization: 'Bearer ' + authHeader
+                },
+                json: {
+                    cid: cid,
+                    name: 'ipadd-pinned-file'
+                }
+            }
+        ).json();
+        if (body != null) {
+            return true;
+        }
+    }
+    catch (err) {
+        pinFile(cid, authHeader);
+    }
 }
