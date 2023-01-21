@@ -17,7 +17,8 @@ import { fileSizePin } from "./fileSizePin.js";
 
 export async function chunkPinningMode(cid: string, ipfsNode: IPFS, authHeader: string) {
     let resultArray: number[] = [];
-    for await (const file of ipfsNode.files.ls(`/ipfs/${cid}`)) {
+    //@ts-expect-error
+    for await (const file of ipfsNode.ls(cid)) {
         if(await fileSizePin(file.cid, ipfsNode, authHeader) == 0) {
             resultArray.push(await chunkPinningMode(file.cid, ipfsNode, authHeader));
         }
