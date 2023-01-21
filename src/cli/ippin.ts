@@ -17,13 +17,10 @@
 import yargs from 'yargs';
 import { genSignature, loadSignature, saveSignature } from "../util/sigUtil.js";
 import inquirer from "inquirer";
-import { pinFile } from '../pin.js';
 import * as IPFS from 'ipfs-core'
 import { getAppDataFolder } from '../util/getAppDataFolder.js';
-//@ts-expect-error
-import { ApiPromise, WsProvider } from '@polkadot/api';
-import { typesBundleForPolkadot } from '@crustio/type-definitions';
-import { checkPin } from '../util/checkPin.js';
+import { fileSizePin } from '../util/fileSizePin.js';
+import { chunkPinningMode } from '../util/chunkPinMode.js';
 
 // Cli arguments
 const argv = yargs(process.argv.slice(2)).options({
@@ -49,28 +46,20 @@ if (loadSignature() == null) {
 }
 
 // Get Auth Header
-const authHeader = loadSignature();
+//@ts-expect-error
+const authHeader: string = loadSignature();
 
 // Start an ipfs node
 console.log('Starting IPFS Node');
 const ipfsNode = await IPFS.create({ repo: `${getAppDataFolder()}/ipadd/jsipfs`, silent: true });
 
-// Get file size
-const fileSizeJson = await ipfsNode.files.stat(`/ipfs/${argv.cid}`)
-const fileSize: number = fileSizeJson.cumulativeSize;
+let result: number = await fileSizePin(argv.cid, ipfsNode, authHeader);
 
-// Start Polkadot API Instance
-const wsProvider: WsProvider = new WsProvider('wss://api.crust.network');
-const api: ApiPromise = ApiPromise.create({ provider: wsProvider, typesBundle: typesBundleForPolkadot });
-
-// Check if file size is under 5GB
-if (fileSize <= 5000000000) {
-    console.log(`Pinning ${argv.cid}`);
-    //@ts-expect-error
-    await pinFile(argv.cid, authHeader);
-    console.log('Pin requested');
-
-    // Check if file is pinned
-    await api.isReady;
-    let result = checkPin(argv.cid, api);
+// If there is no expiry block, start pinning individual chunks
+if (result == 0) {
+    console.log('Switching to chunk pinning mode');
+    result = await chunkPinningMode(argv.cid, ipfsNode, authHeader);
 }
+
+console.log(`Pinned ${argv.cid}. Expires at ${result}`);
+process.exit(0);
