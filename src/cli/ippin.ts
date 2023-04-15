@@ -20,7 +20,6 @@ import inquirer from "inquirer";
 import * as IPFS from 'ipfs-core'
 import { getAppDataFolder } from '../util/getAppDataFolder.js';
 import { fileSizePin } from '../util/fileSizePin.js';
-import { chunkPinningMode } from '../util/chunkPinMode.js';
 
 // Cli arguments
 const argv = yargs(process.argv.slice(2)).options({
@@ -49,17 +48,7 @@ if (loadSignature() == null) {
 //@ts-expect-error
 const authHeader: string = loadSignature();
 
-// Start an ipfs node
-console.log('Starting IPFS Node');
-const ipfsNode = await IPFS.create({ repo: `${getAppDataFolder()}/ipadd/jsipfs`, silent: true });
-
-let result: number = await fileSizePin(argv.cid, ipfsNode, authHeader);
-
-// If there is no expiry block, start pinning individual chunks
-if (result == 0) {
-    console.log('Switching to chunk pinning mode');
-    result = await chunkPinningMode(argv.cid, ipfsNode, authHeader);
-}
+let result: number = await fileSizePin(argv.cid, authHeader);
 
 console.log(`Pinned ${argv.cid}. Expires at ${result}`);
 process.exit(0);

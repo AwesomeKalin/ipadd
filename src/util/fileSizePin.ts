@@ -12,27 +12,17 @@
 * SOFTWARE.
 */
 
-import { IPFS } from "ipfs-core";
 import { checkPin } from "./checkPin.js";
 import { pinFile } from '../pin.js';
 
-export async function fileSizePin(cid: string, ipfsNode: IPFS, authHeader: string) {
+export async function fileSizePin(cid: string, authHeader: string) {
     let result: number;
+    console.log(`Pinning ${cid}`);
+    await pinFile(cid, authHeader);
+    console.log('Pin requested');
 
-    // Get file size
-    const fileSizeJson = await ipfsNode.files.stat(`/ipfs/${cid}`)
-    const fileSize: number = fileSizeJson.cumulativeSize;
-
-    if (fileSize <= 5000000000) {
-        console.log(`Pinning ${cid}`);
-        await pinFile(cid, authHeader);
-        console.log('Pin requested');
-
-        // Check if file is pinned
-        result = await checkPin(cid);
-    } else {
-        result = 0;
-    }
+    // Check if file is pinned
+    result = await checkPin(cid);
 
     return result;
 }
