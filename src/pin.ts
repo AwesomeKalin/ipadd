@@ -38,6 +38,6 @@ export async function pinFile(cid: string, authHeader: string) {
         }
     }
     catch (err) {
-        pinFile(cid, authHeader);
+        await pinFile(cid, authHeader);
     }
 }

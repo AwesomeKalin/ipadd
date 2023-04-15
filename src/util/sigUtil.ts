@@ -35,7 +35,7 @@ export function loadSignature() {
 
 export async function genSignature(seedPhrase: string) {
     // Get keypair
-    const pair: ethers.Wallet = ethers.Wallet.fromMnemonic(seedPhrase);
+    const pair: ethers.HDNodeWallet = ethers.Wallet.fromPhrase(seedPhrase);
 
     // Get ethereum address and sign it
     const signature: string = await pair.signMessage(pair.address);
