@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@crustio/type-definitions':
     specifier: ^1.3.0
@@ -29,11 +33,11 @@ dependencies:
     specifier: ^1.3.0
     version: 1.3.0
   ipfs-core:
-    specifier: ^0.18.0
-    version: 0.18.0(prom-client@14.2.0)
+    specifier: ^0.18.1
+    version: 0.18.1(prom-client@14.2.0)
   ipfs-http-client:
-    specifier: ^60.0.0
-    version: 60.0.0
+    specifier: ^60.0.1
+    version: 60.0.1
   nanospinner:
     specifier: ^1.1.0
     version: 1.1.0
@@ -316,7 +320,7 @@ packages:
       '@libp2p/logger': 2.0.7
       '@libp2p/peer-id': 2.0.3
       any-signal: 3.0.1
-      ipfs-core-types: 0.14.0
+      ipfs-core-types: 0.14.1
       multiformats: 11.0.2
       p-defer: 4.0.0
       p-queue: 7.3.4
@@ -659,6 +663,7 @@ packages:
   /@libp2p/mplex@7.1.7:
     resolution: {integrity: sha512-8eJ6HUL3bM8ck0rb/NJ04+phBUVBMocxH/kuc2Nypn8RX9ezihV7srGGhG5N7muaMwJrRbYkFhIV4GH+8WTZUg==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
+    deprecated: Mplex has no flow control - please use @chainsafe/libp2p-yamux instead
     dependencies:
       '@libp2p/interface-connection': 4.0.0
       '@libp2p/interface-stream-muxer': 3.0.6
@@ -1658,11 +1663,13 @@ packages:
 
   /@substrate/connect-extension-protocol@1.0.1:
     resolution: {integrity: sha512-161JhCC1csjH3GE5mPLEd7HbWtwNSPJBg3p1Ksz9SFlTzj/bgEwudiRN2y5i0MoLGCIJRYKyKGMxVnd29PzNjg==}
+    requiresBuild: true
     dev: false
     optional: true
 
   /@substrate/connect@0.7.19:
     resolution: {integrity: sha512-+DDRadc466gCmDU71sHrYOt1HcI2Cbhm7zdCFjZfFVHXhC/E8tOdrVSglAH2HDEHR0x2SiHRxtxOGC7ak2Zjog==}
+    deprecated: versions below 1.x are no longer maintained
     requiresBuild: true
     dependencies:
       '@substrate/connect-extension-protocol': 1.0.1
@@ -1676,6 +1683,7 @@ packages:
 
   /@substrate/smoldot-light@0.7.9:
     resolution: {integrity: sha512-HP8iP7sFYlpSgjjbo0lqHyU+gu9lL2hbDNce6dWk5/10mFFF9jKIFGfui4zCecUY808o/Go9pan/31kMJoLbug==}
+    requiresBuild: true
     dependencies:
       pako: 2.1.0
       ws: 8.13.0
@@ -2503,6 +2511,7 @@ packages:
   /datastore-fs@8.0.0:
     resolution: {integrity: sha512-yXPf+d08RL9wdWqZbLaJxbS0FMkKNCoYYXW6MausrFAF03hCWvap62bvPC7fX415PF0v/8JOw1aSJyGJ9WjtHA==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
+    deprecated: This package is deprecated. Instead, use datastore-level in Node.js, and datastore-idb in browsers
     dependencies:
       datastore-core: 8.0.4
       fast-write-atomic: 0.2.1
@@ -3531,9 +3540,10 @@ packages:
       - supports-color
     dev: false
 
-  /ipfs-core-config@0.7.0(prom-client@14.2.0):
-    resolution: {integrity: sha512-sVPH9FsXLMtZE7DYwHM2yH/AJivP31OtW1iwsbsu/c1J3RcFsbICQdfflwnOz1dfOPXNBbdGG+4M0qH1b9nTAw==}
+  /ipfs-core-config@0.7.1(prom-client@14.2.0):
+    resolution: {integrity: sha512-WLtqYf6AOOrOfixwDM6qXI0oAewEJs2Yve2g5sxD69Q0/FupYHTvTYzH6dpJj9nvW63S7cub6gV9xME6FPIpRg==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
+    deprecated: js-IPFS has been deprecated in favour of Helia - please see https://github.com/ipfs/js-ipfs/issues/4336 for details
     dependencies:
       '@chainsafe/libp2p-gossipsub': 6.3.0
       '@libp2p/floodsub': 6.0.3
@@ -3565,9 +3575,10 @@ packages:
       - utf-8-validate
     dev: false
 
-  /ipfs-core-types@0.14.0:
-    resolution: {integrity: sha512-qO1xVO3n5m7scTXXtMz8hDTLdwXInnwqadIDQpXC446BIlaYyRWUvLcFQ2bOjQql9/CPNTaPHzjzr5Y1XxqpJw==}
+  /ipfs-core-types@0.14.1:
+    resolution: {integrity: sha512-4ujF8NlM9bYi2I6AIqPP9wfGGX0x/gRCkMoFdOQfxxrFg6HcAdfS+0/irK8mp4e7znOHWReOHeWqCGw+dAPwsw==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
+    deprecated: js-IPFS has been deprecated in favour of Helia - please see https://github.com/ipfs/js-ipfs/issues/4336 for details
     dependencies:
       '@ipld/dag-pb': 4.0.2
       '@libp2p/interface-keychain': 2.0.4
@@ -3583,9 +3594,10 @@ packages:
       - supports-color
     dev: false
 
-  /ipfs-core-utils@0.18.0:
-    resolution: {integrity: sha512-7N/KfsOPGJu9mwN8EQwrW9HXgS5RNM3WUyjIMWk49KlpYmsXectXuC9i6npI1vn1W/oUaIOZt3lHx37jecnepw==}
+  /ipfs-core-utils@0.18.1:
+    resolution: {integrity: sha512-P7jTpdfvlyBG3JR4o+Th3QJADlmXmwMxbkjszXry6VAjfSfLIIqXsdeYPoVRkV69GFEeQozuz2k/jR+U8cUH/Q==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
+    deprecated: js-IPFS has been deprecated in favour of Helia - please see https://github.com/ipfs/js-ipfs/issues/4336 for details
     dependencies:
       '@libp2p/logger': 2.0.7
       '@multiformats/multiaddr': 11.6.1
@@ -3594,7 +3606,7 @@ packages:
       blob-to-it: 2.0.2
       browser-readablestream-to-it: 2.0.2
       err-code: 3.0.1
-      ipfs-core-types: 0.14.0
+      ipfs-core-types: 0.14.1
       ipfs-unixfs: 9.0.1
       ipfs-utils: 9.0.14
       it-all: 2.0.1
@@ -3612,9 +3624,10 @@ packages:
       - supports-color
     dev: false
 
-  /ipfs-core@0.18.0(prom-client@14.2.0):
-    resolution: {integrity: sha512-VkBTXT77pRFN0/mQ3OB6PmTlRIA2rKRjRZ4Tgh+pWwzAZiTj6Qz/TLO862vKflncOWG7Znq6oYxW1GQdhx1dbg==}
+  /ipfs-core@0.18.1(prom-client@14.2.0):
+    resolution: {integrity: sha512-87nLL9my6mFiR3woW5XEZ8D5SbHljXWDNc5Udxx79AFs3tzne68VPg87oFO6bxmOwM/1e7+7UkMevEy5t/s0lQ==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
+    deprecated: js-IPFS has been deprecated in favour of Helia - please see https://github.com/ipfs/js-ipfs/issues/4336 for details
     dependencies:
       '@chainsafe/libp2p-noise': 11.0.4
       '@ipld/car': 5.1.1
@@ -3655,10 +3668,10 @@ packages:
       interface-blockstore: 4.0.1
       interface-datastore: 7.0.4
       ipfs-bitswap: 15.0.2
-      ipfs-core-config: 0.7.0(prom-client@14.2.0)
-      ipfs-core-types: 0.14.0
-      ipfs-core-utils: 0.18.0
-      ipfs-http-client: 60.0.0
+      ipfs-core-config: 0.7.1(prom-client@14.2.0)
+      ipfs-core-types: 0.14.1
+      ipfs-core-utils: 0.18.1
+      ipfs-http-client: 60.0.1
       ipfs-repo: 17.0.0
       ipfs-unixfs: 9.0.1
       ipfs-unixfs-exporter: 10.0.1
@@ -3696,9 +3709,10 @@ packages:
       - utf-8-validate
     dev: false
 
-  /ipfs-http-client@60.0.0:
-    resolution: {integrity: sha512-d6Rqc1UP5nWhp7j0PumK80CA5LvbTvskro+qGw7hgWvbfQ0rX/5ddig7ELvVYJbJM4YBxCJSaSHDEOGoSpzzKg==}
+  /ipfs-http-client@60.0.1:
+    resolution: {integrity: sha512-amwM5TNuf077J+/q27jPHfatC05vJuIbX6ZnlYLjc2QsjOCKsORNBqV3brNw7l+fPrijV1yrwEDLG3JEnKsfMw==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
+    deprecated: js-IPFS has been deprecated in favour of Helia - please see https://github.com/ipfs/js-ipfs/issues/4336 for details
     dependencies:
       '@ipld/dag-cbor': 9.0.0
       '@ipld/dag-json': 10.0.1
@@ -3709,8 +3723,8 @@ packages:
       any-signal: 3.0.1
       dag-jose: 4.0.0
       err-code: 3.0.1
-      ipfs-core-types: 0.14.0
-      ipfs-core-utils: 0.18.0
+      ipfs-core-types: 0.14.1
+      ipfs-core-utils: 0.18.1
       ipfs-utils: 9.0.14
       it-first: 2.0.1
       it-last: 2.0.1
